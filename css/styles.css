@@ -1,0 +1,232 @@
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    width: 100%;
+    background-color: rgb(0, 0, 0);
+    font-family: 'Pathway Gothic One', Arial, Helvetica, sans-serif;
+}
+
+nav{
+    width: 100%;
+    height: 4vh;
+    position: sticky;
+    top: 0;
+    display: grid;
+    justify-content: space-around;
+    align-items: center;
+    grid-template-columns: 30vw 35vw 30vw;
+    background-color: rgba(0,0,0,0.8);
+    backdrop-filter: blur(5px);
+    z-index: 1;
+}
+ul li {
+    list-style-type: none;
+}
+
+a{
+    color: white;
+    text-decoration: none;
+}
+h1{
+    position: relative;
+    background-color: rgb(0, 0, 0);
+    font-size: 3rem;
+    letter-spacing: 1rem;
+    transform: translateX(1rem);
+    text-align: center;
+    color: white;
+    animation-timing-function: ease-out;
+    animation: tittleAnim 0.5s;
+}
+footer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 1% 5% 0 5%;
+    background-color: black;
+    color: white;
+    font-family: 'Pathway Gothic One', Arial, Helvetica, sans-serif;
+}
+/*/////////////////////////////////PRODUCTO///////////////////////////////////////*/
+.nav__logo{
+    height: 2vh;
+    justify-self: left;
+}
+.nav__logo img{
+    height: 100%;
+}
+
+.nav__menu{
+    display: flex;
+    justify-content: space-around;
+}
+
+.nav__redes{
+    height: 2vh;
+    justify-self: right;
+}
+.nav__redes__icon{
+    height: 100%;
+}
+/*//////////////////////////////////////////////////////////////////////////////////*/
+@keyframes tittleAnim {
+    from {
+        top: -100px;
+        opacity: 0%; 
+    }
+    to {
+        top: 0;
+        opacity: 80%;
+    } 
+}
+
+.redText{
+    color: #cf2929;
+}
+/*//////////////////////////////////////////////////////////////////////////////////*/
+.productos{
+    width: 100%;
+    background-color: white;
+}
+.productos__grid{
+    width: 60vw;
+    background-color: white;
+    margin: 0 20vw 0 20vw;
+    padding: 5vh 0 10vh 0;
+    display: grid;
+    grid-template-columns: 30% 30% 30%;
+    grid-row-gap: 50px;
+    justify-items: center;
+    justify-content: space-around;
+    box-shadow:0px 0px 100px 100px rgba(0, 0, 0, 0.3);
+}
+/*/////////////////////////////////PRODUCTO///////////////////////////////////////*/
+.producto{
+    width: 15vw;
+    height: 21vw;
+    border-radius: 10px;
+    background-color: black;
+    overflow:hidden;
+    box-shadow:0px 0px 25px 9px rgba(0, 0, 0, 0.4);
+    font-family: 'Pathway Gothic One', Arial, Helvetica, sans-serif;
+}
+
+.producto__titulo{
+    height: 10%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.producto__titulo h3{
+    color: white;
+    font-size: 2rem;
+    letter-spacing: 0.5rem;
+    transform: translateX(0.5rem);
+}
+
+.producto__img{
+    width: 100%;
+    height: 70%;
+    display: flex;
+    align-items: center;
+    border-style: solid;
+    border-width: 2px 0px 2px 0px;
+    border-color: darkgray;
+
+    overflow:hidden;
+}
+.producto__img img{
+    width: 100%;
+}
+
+.producto__info{
+    height: 19%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.producto__info__precio{
+    width: 50%;
+    margin: 0;
+    font-size: 2rem;
+    color: white;
+    text-align: center;
+}
+
+.producto__info__boton{
+    width: 50%;
+    height: 100%;
+    margin: 0;
+    border-radius: 0;
+    border-style: none;
+    background: center / 30px no-repeat url("../img/addtocart.png"), #cf2929;
+}
+.producto__info__boton:active{
+    background: center / 30px no-repeat url("../img/addtocart.png"), red;
+}
+/*//////////////////////////////////////////////////////////////////////////////////*/
+
+#footer__flex {
+    width: 100%; 
+    margin-bottom: 20px;    
+}
+.footer__flex__row {
+    margin-bottom: 30px;
+}
+
+.footer__flex__row h4{
+    margin: 0.2rem 0 0 0;
+}
+
+.footer__flex__row label, input{
+    margin: 1rem 0 0 0;
+    width: 50%;
+}
+
+.footer__flex__row__menuItem {
+    list-style:none;
+    margin: 0.2rem 0 0 0;
+}
+
+.footer__flex__row__redesIcon{
+    margin-top: 1rem;
+    margin-right: 0.5rem;
+    width: 3rem;
+}
+
+#footer__flex__row__button{
+    width: 40%;
+}
+
+.footer__copy{
+    padding: 10px 0 10px 0;
+    border-top: 1px solid white;
+    text-align: center;
+}
+
+/* ////Media queries////
+// @media (min-width: $smallBP) {
+
+// } */
+@media (min-width: 600px) {
+    .footer__flex__row label, input{
+        
+        width: 99%;
+        
+    }
+    #footer__flex{
+        display: flex;
+        justify-content: space-between;
+    }
+    #footer__flex__row__button{
+        width: 100%;
+    }
+  
+}
+/* // @media (min-width: $largeBP) {
+// }  */
