@@ -61,21 +61,47 @@ class Carrito{
             this.productos.push(producto);
         }
 
+        let listaProductos = document.getElementById('carrito__productos');
+        listaProductos.innerHTML = '';
+        this.productos.forEach((prod)=>{
+            
+            let item = document.createElement("div");
+
+            item.innerHTML = `<h6  class="carrito__productos__prod">${prod.cantidad} x   ${prod.id}</h6>
+            <h4 class="carrito__productos__price">$${prod.precio*prod.cantidad}</h4><br>`; 
+            //`<h6  class="carrito__productos__prod">${prod.cantidad} x   ${prod.id}   $ ${prod.precio*prod.cantidad}</h6>`;
+
+            document.getElementById('carrito__productos').appendChild(item);
+
+            // listaProductos.innerHTML = `<h6>${prod.id}</h6>`;
+
+        })
+
+
         this.calcularTotal();
         this.calcularIva();
         this.calcularTotalConIva();
         
     }
 
-    armarString(){
+    // armarString(){
 
-        for (const prod of this.productos) {
-            this.carritoText += (prod.cantidad + 'x   ' + prod.id + '   $' + (prod.precio*prod.cantidad) + '\n');
-        }
+    //     for (const prod of this.productos) {
+    //         this.carritoText += (prod.cantidad + 'x   ' + prod.id + '   $' + (prod.precio*prod.cantidad) + '\n');
+    //     }
 
-        this.carritoText += ('\n' + 'Total: ....................  $' + this.devolverTotal() + '\n' + 'IVA: .......................  $' + this.devolverIva() + '\n' + 'Total + IVA: ........  $' + this.devolverTotalConIva());
+    //     this.carritoText += ('\n' + 'Total: ....................  $' + this.devolverTotal() + '\n' + 'IVA: .......................  $' + this.devolverIva() + '\n' + 'Total + IVA: ........  $' + this.devolverTotalConIva());
 
-        return this.carritoText;
+    //     return this.carritoText;
+    // }
+    actualizarCuenta(){
+        let cuentaTotal = document.getElementById('carrito__cuenta__total');
+        let cuentaIva = document.getElementById('carrito__cuenta__iva');
+        let cuentaTotalIva = document.getElementById('carrito__cuenta__totalIva');
+
+        cuentaTotal.innerText = '$' + this.devolverTotal();
+        cuentaIva.innerText = '$' + this.devolverIva();
+        cuentaTotalIva.innerText = '$' + this.devolverTotalConIva();
     }
 
 }
@@ -103,7 +129,9 @@ do{
 
     }else if(producto == 'esc'){
 
-        alert(carrito.armarString());
+        // alert(carrito.armarString());
+        carrito.actualizarCuenta();
+
         
     }else{
         alert('No se encontro el producto "' + producto + '"');
