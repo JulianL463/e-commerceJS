@@ -68,11 +68,11 @@ class Carrito{
             let item = document.createElement("div");
 
             item.innerHTML = `<div class="carrito__productos__grid">
-            <div class="carrito__productos__imgContainer"><img class="carrito__productos__img" src="img/${prod.id}.jpg" alt=""></div>
-            <h6  class="carrito__productos__prod">${prod.id}</h6>
-            <h6  class="carrito__productos__prodCant">x${prod.cantidad}</h6>
-            <div class="carrito__productos__line"></div>
-            <h4 class="carrito__productos__price">$${prod.precio*prod.cantidad}</h4>
+                <div class="carrito__productos__imgContainer"><img class="carrito__productos__img" src="img/${prod.id}.jpg" alt=""></div>
+                <h6  class="carrito__productos__prod">${prod.id}</h6>
+                <h6  class="carrito__productos__prodCant">x${prod.cantidad}</h6>
+                <div class="carrito__productos__line"></div>
+                <h4 class="carrito__productos__price">$${prod.precio*prod.cantidad}</h4>
             </div>`; 
             //`<h6  class="carrito__productos__prod">${prod.cantidad} x   ${prod.id}</h6><h4 class="carrito__productos__price">$${prod.precio*prod.cantidad}</h4><br>`;
 
