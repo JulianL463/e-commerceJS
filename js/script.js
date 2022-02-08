@@ -67,9 +67,14 @@ class Carrito{
             
             let item = document.createElement("div");
 
-            item.innerHTML = `<h6  class="carrito__productos__prod">${prod.cantidad} x   ${prod.id}</h6>
-            <h4 class="carrito__productos__price">$${prod.precio*prod.cantidad}</h4><br>`; 
-            //`<h6  class="carrito__productos__prod">${prod.cantidad} x   ${prod.id}   $ ${prod.precio*prod.cantidad}</h6>`;
+            item.innerHTML = `<div class="carrito__productos__grid">
+            <div class="carrito__productos__imgContainer"><img class="carrito__productos__img" src="img/${prod.id}.jpg" alt=""></div>
+            <h6  class="carrito__productos__prod">${prod.id}</h6>
+            <h6  class="carrito__productos__prodCant">x${prod.cantidad}</h6>
+            <div class="carrito__productos__line"></div>
+            <h4 class="carrito__productos__price">$${prod.precio*prod.cantidad}</h4>
+            </div>`; 
+            //`<h6  class="carrito__productos__prod">${prod.cantidad} x   ${prod.id}</h6><h4 class="carrito__productos__price">$${prod.precio*prod.cantidad}</h4><br>`;
 
             document.getElementById('carrito__productos').appendChild(item);
 
@@ -111,32 +116,44 @@ let producto = '';
 const stock =  [{id:'chimuelo', precio: 1500},
                 {id:'guante', precio: 700},
                 {id:'pikachu', precio: 250},
-                {id:'snitch', precio: 300}]
+                {id:'snitch', precio: 300}];
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 let carrito = new Carrito();
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
-do{  
-    producto = prompt('Ingrese el producto que quiera agregar al carrito: \n\nchimuelo\nguante\nsnitch\npikachu \n\npara terminar ingrese "esc": ').toLowerCase();
+// do{  
+    //producto = prompt('Ingrese el producto que quiera agregar al carrito: \n\nchimuelo\nguante\nsnitch\npikachu \n\npara terminar ingrese "esc": ').toLowerCase();
+
+    let btnChimuelo = document.getElementById('chimueloAddBtn');
+    let btnGuante = document.getElementById('guanteAddBtn');
+    let btnPikachu = document.getElementById('pikachuAddBtn');
+    let btnSnitch = document.getElementById('snitchAddBtn');
+
+    btnChimuelo.onclick = () => {carrito.agregarProducto(new Producto(stock[0].id, 1, stock[0].precio)); carrito.actualizarCuenta()};
+    btnGuante.onclick = () => {carrito.agregarProducto(new Producto(stock[1].id, 1, stock[1].precio)); carrito.actualizarCuenta()};
+    btnPikachu.onclick = () => {carrito.agregarProducto(new Producto(stock[2].id, 1, stock[2].precio)); carrito.actualizarCuenta()};
+    btnSnitch.onclick = () => {carrito.agregarProducto(new Producto(stock[3].id, 1, stock[3].precio)); carrito.actualizarCuenta()};
+    // btnChimuelo.onmouseup = () => {carrito.actualizarCuenta()};
+    // carrito.actualizarCuenta();
     
-    if(stock.some( (prod) => prod.id == producto)){
+    // if(stock.some( (prod) => prod.id == producto)){
 
-        stock.forEach( (prod) => {
-            if(prod.id == producto){
-                carrito.agregarProducto(new Producto(prod.id, 1, prod.precio));
-            }
-        })
+    //     stock.forEach( (prod) => {
+    //         if(prod.id == producto){
+    //             carrito.agregarProducto(new Producto(prod.id, 1, prod.precio));
+    //         }
+    //     })
 
-    }else if(producto == 'esc'){
+    // }else if(producto == 'esc'){
 
-        // alert(carrito.armarString());
-        carrito.actualizarCuenta();
+    //     // alert(carrito.armarString());
+    //     carrito.actualizarCuenta();
 
         
-    }else{
-        alert('No se encontro el producto "' + producto + '"');
-        console.log('No se encontro el producto "' + producto + '"');
-    }
+    // }else{
+    //     alert('No se encontro el producto "' + producto + '"');
+    //     console.log('No se encontro el producto "' + producto + '"');
+    // }
     
-}while(producto != 'esc');
+// }while(producto != 'esc');
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////

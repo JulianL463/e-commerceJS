@@ -193,13 +193,69 @@ footer {
     background-color: white;
     padding: 5px 15px 5px 15px;
 }
+/*//////////////////////////////////////////////////////////////////////////////////*/
+.carrito__productos__grid{
+    display: grid;
+    grid-template-columns: 1fr 1fr 2fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    column-gap: 10px;
+    margin-bottom: 10px;
+}
+.carrito__productos__imgContainer{
+    width: 60px;
+    height: 60px;
+    overflow: hidden;
+    border-radius: 30px;
+    grid-row-start: 1;
+    grid-row-end: 3;
+    align-self: center;
+    justify-self: center;
+}
+.carrito__productos__img{
+    width: 60px;
+    height: auto;
+}
 .carrito__productos__prod{
     font-size: 1rem;
     line-height: 1.5rem;
     letter-spacing: 0.1rem;
-    display: inline-block;
+    grid-row-start: 1;
+    grid-row-end: 2;
+    grid-column-start: 2;
+    grid-column-end: 4;
+    align-self: flex-end;
 }
-
+.carrito__productos__prodCant{
+    font-size: 1rem;
+    line-height: 1.5rem;
+    letter-spacing: 0.1rem;
+    grid-row-start: 2;
+    grid-row-end: 3;
+    grid-column-start: 2;
+    grid-column-end: 3;
+}
+.carrito__productos__line{
+    background-color: #cf2929;
+    height: 1px;
+    width: 125%;
+    grid-row-start: 2;
+    grid-row-end: 3;
+    grid-column-start: 3;
+    grid-column-end: 4;
+    align-self: center;
+    justify-self: center;
+}
+.carrito__productos__price{
+    font-size: 1rem;
+    line-height: 1.5rem;
+    letter-spacing: 0.1rem;
+    grid-row-start: 2;
+    grid-row-end: 3;
+    grid-column-start: 4;
+    grid-column-end: 5;
+    justify-self: center;
+}
+/*//////////////////////////////////////////////////////////////////////////////////*/
 #carrito__cuenta{
     background-color: black;
     color: white;
@@ -210,8 +266,11 @@ footer {
 #carrito__cuenta h4{
     display: inline-block;
 }
-#carrito__cuenta__total, #carrito__cuenta__iva, #carrito__cuenta__totalIva, .carrito__productos__price{
+#carrito__cuenta__total, #carrito__cuenta__iva, #carrito__cuenta__totalIva{
     float: right;
+}
+#carrito__cuenta__totalIva{
+    font-size: 1.4rem;
 }
 
 /*//////////////////////////////////////////////////////////////////////////////////*/
