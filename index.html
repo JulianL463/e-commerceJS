@@ -34,10 +34,17 @@
 
         <h1>TIEN<span class="redText">DA</span></h1>
 
-        <div id="carrito">
-            <h3>Carrito</h3>
-            <div id="carrito__productos">
+        <div id="carrito" class="carritoHide">
+
+            <div id="carrito__top">
+                <div id="carrito__title">CARRITO</div>
+                <div id="carrito__close"><img id="carrito__close__img" src="img/crosswhite.png" alt=""></div>
             </div>
+            
+
+            <div id="carrito__productos">                
+            </div>
+
             <div id="carrito__cuenta">
                 <h4>Total: </h4>
                 <h4 id="carrito__cuenta__total">$0</h4><br>
@@ -46,6 +53,11 @@
                 <h4>Total+IVA: </h4>
                 <h4 id="carrito__cuenta__totalIva" >$0</h4>
             </div>
+
+        </div>
+
+        <div id="btnCarrito" class="shrinkAnimBtnCarrito">
+            <div id="btnCarrito__inside"></div>
         </div>
         
 
@@ -87,7 +99,6 @@
             </div>
         </section>
 
-        
 
         <footer>
             <div id="footer__flex">

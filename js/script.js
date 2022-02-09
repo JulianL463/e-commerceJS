@@ -46,7 +46,25 @@ class Carrito{
     devolverTotalConIva(){
         return this.totalConIva;
     }
+    actualizarProductos(){
+        let listaProductos = document.getElementById('carrito__productos');
+        listaProductos.innerHTML = '';
 
+        this.productos.forEach((prod)=>{
+            
+            let item = document.createElement("div");
+
+            item.innerHTML = `<div class="carrito__productos__grid">
+                <div class="carrito__productos__imgContainer"><img class="carrito__productos__img" src="img/${prod.id}.jpg" alt=""></div>
+                <h6  class="carrito__productos__prod">${prod.id}</h6>
+                <h6  class="carrito__productos__prodCant">x${prod.cantidad}</h6>
+                <div class="carrito__productos__line"></div>
+                <h4 class="carrito__productos__price">$${prod.precio*prod.cantidad}</h4>
+            </div>`; 
+
+            document.getElementById('carrito__productos').appendChild(item);
+        })
+    }
     agregarProducto(producto){
 
         if(this.productos.some((prod) => prod.id == producto.id)){
@@ -61,26 +79,7 @@ class Carrito{
             this.productos.push(producto);
         }
 
-        let listaProductos = document.getElementById('carrito__productos');
-        listaProductos.innerHTML = '';
-        this.productos.forEach((prod)=>{
-            
-            let item = document.createElement("div");
-
-            item.innerHTML = `<div class="carrito__productos__grid">
-                <div class="carrito__productos__imgContainer"><img class="carrito__productos__img" src="img/${prod.id}.jpg" alt=""></div>
-                <h6  class="carrito__productos__prod">${prod.id}</h6>
-                <h6  class="carrito__productos__prodCant">x${prod.cantidad}</h6>
-                <div class="carrito__productos__line"></div>
-                <h4 class="carrito__productos__price">$${prod.precio*prod.cantidad}</h4>
-            </div>`; 
-            //`<h6  class="carrito__productos__prod">${prod.cantidad} x   ${prod.id}</h6><h4 class="carrito__productos__price">$${prod.precio*prod.cantidad}</h4><br>`;
-
-            document.getElementById('carrito__productos').appendChild(item);
-
-            // listaProductos.innerHTML = `<h6>${prod.id}</h6>`;
-
-        })
+        this.actualizarProductos();
 
 
         this.calcularTotal();
@@ -88,17 +87,9 @@ class Carrito{
         this.calcularTotalConIva();
         
     }
+    
+    
 
-    // armarString(){
-
-    //     for (const prod of this.productos) {
-    //         this.carritoText += (prod.cantidad + 'x   ' + prod.id + '   $' + (prod.precio*prod.cantidad) + '\n');
-    //     }
-
-    //     this.carritoText += ('\n' + 'Total: ....................  $' + this.devolverTotal() + '\n' + 'IVA: .......................  $' + this.devolverIva() + '\n' + 'Total + IVA: ........  $' + this.devolverTotalConIva());
-
-    //     return this.carritoText;
-    // }
     actualizarCuenta(){
         let cuentaTotal = document.getElementById('carrito__cuenta__total');
         let cuentaIva = document.getElementById('carrito__cuenta__iva');
@@ -121,8 +112,6 @@ const stock =  [{id:'chimuelo', precio: 1500},
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 let carrito = new Carrito();
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
-// do{  
-    //producto = prompt('Ingrese el producto que quiera agregar al carrito: \n\nchimuelo\nguante\nsnitch\npikachu \n\npara terminar ingrese "esc": ').toLowerCase();
 
     let btnChimuelo = document.getElementById('chimueloAddBtn');
     let btnGuante = document.getElementById('guanteAddBtn');
@@ -133,27 +122,11 @@ let carrito = new Carrito();
     btnGuante.onclick = () => {carrito.agregarProducto(new Producto(stock[1].id, 1, stock[1].precio)); carrito.actualizarCuenta()};
     btnPikachu.onclick = () => {carrito.agregarProducto(new Producto(stock[2].id, 1, stock[2].precio)); carrito.actualizarCuenta()};
     btnSnitch.onclick = () => {carrito.agregarProducto(new Producto(stock[3].id, 1, stock[3].precio)); carrito.actualizarCuenta()};
-    // btnChimuelo.onmouseup = () => {carrito.actualizarCuenta()};
-    // carrito.actualizarCuenta();
-    
-    // if(stock.some( (prod) => prod.id == producto)){
 
-    //     stock.forEach( (prod) => {
-    //         if(prod.id == producto){
-    //             carrito.agregarProducto(new Producto(prod.id, 1, prod.precio));
-    //         }
-    //     })
+    let btnCarrito = document.getElementById('btnCarrito');
+    let carro = document.getElementById('carrito');
+    let btnCloseCarrito = document.getElementById('carrito__close__img');
 
-    // }else if(producto == 'esc'){
-
-    //     // alert(carrito.armarString());
-    //     carrito.actualizarCuenta();
-
-        
-    // }else{
-    //     alert('No se encontro el producto "' + producto + '"');
-    //     console.log('No se encontro el producto "' + producto + '"');
-    // }
-    
-// }while(producto != 'esc');
+    btnCarrito.onclick = () => { btnCarrito.classList.add('growAnimBtnCarrito'); btnCarrito.classList.remove('shrinkAnimBtnCarrito'); carro.classList.remove('carritoHide'); carro.classList.add('carritoShow')};
+    btnCloseCarrito.onclick = () => { btnCarrito.classList.remove('growAnimBtnCarrito'); btnCarrito.classList.add('shrinkAnimBtnCarrito'); carro.classList.add('carritoHide'); carro.classList.remove('carritoShow')};
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
