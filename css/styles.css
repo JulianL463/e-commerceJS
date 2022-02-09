@@ -92,7 +92,7 @@ footer {
     width: 100%;
     background-color: white;
 }
-.productos__grid{
+#productos__grid{
     width: 60vw;
     background-color: white;
     margin: 0 20vw 0 20vw;
@@ -263,6 +263,12 @@ footer {
 }
 .shrinkAnimBtnCarrito{
     animation: shrinkCarrito 0.7s;
+    border-radius: 50%;
+    width: 80px;
+    height: 80px;
+    z-index: 2;
+}
+.shrinkBtnCarrito{
     border-radius: 50%;
     width: 80px;
     height: 80px;

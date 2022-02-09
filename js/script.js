@@ -107,26 +107,39 @@ let producto = '';
 const stock =  [{id:'chimuelo', precio: 1500},
                 {id:'guante', precio: 700},
                 {id:'pikachu', precio: 250},
-                {id:'snitch', precio: 300}];
+                {id:'snitch', precio: 300},
+                {id:'groot', precio: 1000},
+                {id:'ironman', precio: 500},
+                {id:'kiloren', precio: 450}];
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 let carrito = new Carrito();
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+stock.forEach((prod)=>{
+            
+    let item = document.createElement("div");
 
-    let btnChimuelo = document.getElementById('chimueloAddBtn');
-    let btnGuante = document.getElementById('guanteAddBtn');
-    let btnPikachu = document.getElementById('pikachuAddBtn');
-    let btnSnitch = document.getElementById('snitchAddBtn');
+    item.className = "producto";
+    item.innerHTML = `<div class="producto__titulo"><h3>${prod.id.toUpperCase()}</h3></div>
+                    <div class="producto__img"><img src="img/${prod.id}.jpg" alt=""></div>
+                    <div class="producto__info">
+                        <h4 class="producto__info__precio">$${prod.precio}</h4>
+                        <input id="${prod.id}AddBtn" class="producto__info__boton" type="button" value="">
+                     </div>;`;
 
-    btnChimuelo.onclick = () => {carrito.agregarProducto(new Producto(stock[0].id, 1, stock[0].precio)); carrito.actualizarCuenta()};
-    btnGuante.onclick = () => {carrito.agregarProducto(new Producto(stock[1].id, 1, stock[1].precio)); carrito.actualizarCuenta()};
-    btnPikachu.onclick = () => {carrito.agregarProducto(new Producto(stock[2].id, 1, stock[2].precio)); carrito.actualizarCuenta()};
-    btnSnitch.onclick = () => {carrito.agregarProducto(new Producto(stock[3].id, 1, stock[3].precio)); carrito.actualizarCuenta()};
+    document.getElementById('productos__grid').appendChild(item);
+})
 
-    let btnCarrito = document.getElementById('btnCarrito');
-    let carro = document.getElementById('carrito');
-    let btnCloseCarrito = document.getElementById('carrito__close__img');
+stock.forEach((prod)=>{
+    let btn = document.getElementById(prod.id+'AddBtn');
+    btn.onclick = () => {carrito.agregarProducto(new Producto(prod.id, 1, prod.precio)); carrito.actualizarCuenta()};
+})
 
-    btnCarrito.onclick = () => { btnCarrito.classList.add('growAnimBtnCarrito'); btnCarrito.classList.remove('shrinkAnimBtnCarrito'); carro.classList.remove('carritoHide'); carro.classList.add('carritoShow')};
-    btnCloseCarrito.onclick = () => { btnCarrito.classList.remove('growAnimBtnCarrito'); btnCarrito.classList.add('shrinkAnimBtnCarrito'); carro.classList.add('carritoHide'); carro.classList.remove('carritoShow')};
+
+let btnCarrito = document.getElementById('btnCarrito');
+let carro = document.getElementById('carrito');
+let btnCloseCarrito = document.getElementById('carrito__close__img');
+
+btnCarrito.onclick = () => { btnCarrito.classList.add('growAnimBtnCarrito'); btnCarrito.classList.remove('shrinkAnimBtnCarrito');btnCarrito.classList.remove('shrinkBtnCarrito'); carro.classList.remove('carritoHide'); carro.classList.add('carritoShow')};
+btnCloseCarrito.onclick = () => { btnCarrito.classList.remove('growAnimBtnCarrito'); btnCarrito.classList.add('shrinkAnimBtnCarrito'); carro.classList.add('carritoHide'); carro.classList.remove('carritoShow')};
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
