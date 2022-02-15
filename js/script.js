@@ -9,14 +9,10 @@ class Producto{
     }
 
     sumarUno(){
-        if(this.cantidad<this.stock){
-            this.cantidad++;
-        }
+        this.cantidad<this.stock && this.cantidad++;
     }
     restarUno(){
-        if(this.cantidad>1){
-            this.cantidad--;
-        }
+        this.cantidad>1 && this.cantidad--;
     }
 }
 
@@ -38,15 +34,19 @@ class Carrito{
         let localStorageCarrito = JSON.parse(localStorage.getItem("oldCarrito")) || [];
 
         localStorageCarrito.forEach((prod) => {
-            carrito.agregarProducto(new Producto(prod.id, prod.cantidad, prod.precio), false);
+            const product = {
+                ...prod
+            }
+            carrito.agregarProducto(product, false);
         })
 	}
 
     calcularTotal(){
         this.total = 0;
-        for (const prod of this.productos) {
+        
+        this.productos.forEach((prod)=> {
             this.total += (prod.precio * prod.cantidad);
-        }
+        })
     }
     devolverTotal(){
         return this.total; 
@@ -71,30 +71,31 @@ class Carrito{
 
         this.productos.forEach((prod)=>{
             
+            const {id, cantidad, precio} = prod;
             let item = document.createElement("div");
 
             item.innerHTML = `<div class="carrito__productos__grid">
-                <div class="carrito__productos__imgContainer"><img class="carrito__productos__img" src="img/${prod.id}.jpg" alt=""></div>
-                <h6  class="carrito__productos__prod">${prod.id}</h6>
+                <div class="carrito__productos__imgContainer"><img class="carrito__productos__img" src="img/${id}.jpg" alt=""></div>
+                <h6  class="carrito__productos__prod">${id}</h6>
                 <div class="carrito__productos__prodCant">
-                    <h6 class="carrito__productos__prodCant__restar" id="restar--${prod.id}"><</h6>  
-                    <h6>${prod.cantidad}</h6>
-                    <h6 class="carrito__productos__prodCant__sumar" id="sumar--${prod.id}">></h6>
+                    <h6 class="carrito__productos__prodCant__restar" id="restar--${id}"><</h6>  
+                    <h6>${cantidad}</h6>
+                    <h6 class="carrito__productos__prodCant__sumar" id="sumar--${id}">></h6>
                 </div>                
                 <div class="carrito__productos__line"></div>
-                <div class="carrito__productos__delete"><img class="carrito__productos__delete__crossImg" id="delete--${prod.id}" src="img/crosswhite.png" alt=""></div>
-                <h4 class="carrito__productos__price">$${prod.precio*prod.cantidad}</h4>
+                <div class="carrito__productos__delete"><img class="carrito__productos__delete__crossImg" id="delete--${id}" src="img/crosswhite.png" alt=""></div>
+                <h4 class="carrito__productos__price">$${precio*cantidad}</h4>
             </div>`; 
 
             document.getElementById('carrito__productos').appendChild(item);
 
-            let deleteBtn = document.getElementById("delete--"+prod.id);
-            deleteBtn.onclick = () => {this.quitarProducto(prod.id)};
+            let deleteBtn = document.getElementById("delete--"+id);
+            deleteBtn.onclick = () => {this.quitarProducto(id)};
 
-            let sumarBtn = document.getElementById("sumar--"+prod.id);
+            let sumarBtn = document.getElementById("sumar--"+id);
             sumarBtn.onclick = () => {prod.sumarUno();this.actualizarCarrito(true)};
 
-            let restarBtn = document.getElementById("restar--"+prod.id);
+            let restarBtn = document.getElementById("restar--"+id);
             restarBtn.onclick = () => {prod.restarUno();this.actualizarCarrito(true)};
         })
     }
@@ -114,9 +115,8 @@ class Carrito{
         this.calcularTotalConIva();
         
 		this.actualizarCuenta();
-        if(guardar){
-            this.guardarCarrito();
-        }
+
+        guardar && this.guardarCarrito();
     }
 
     agregarProducto(producto, guardar){
@@ -140,7 +140,7 @@ class Carrito{
         let index = this.productos.findIndex( item => item.id == producto)
         this.productos.splice(index,1);
 
-        this.actualizarCarrito(false);
+        this.actualizarCarrito(true);
     }
 
 }
@@ -162,21 +162,22 @@ carrito.cargarCarrito();
 
 
 stock.forEach((prod)=>{
-            
+
+    const {id, precio, dispo} = prod;
     let item = document.createElement("div");
 
     item.className = "producto";
-    item.innerHTML = `<div class="producto__titulo"><h3>${prod.id.toUpperCase()}</h3></div>
-                    <div class="producto__img"><img src="img/${prod.id}.jpg" alt=""></div>
+    item.innerHTML = `<div class="producto__titulo"><h3>${id.toUpperCase()}</h3></div>
+                    <div class="producto__img"><img src="img/${id}.jpg" alt=""></div>
                     <div class="producto__info">
-                        <h4 class="producto__info__precio">$${prod.precio}</h4>
-                        <input id="${prod.id}AddBtn" class="producto__info__boton" type="button" value="">
+                        <h4 class="producto__info__precio">$${precio}</h4>
+                        <input id="${id}AddBtn" class="producto__info__boton" type="button" value="">
                      </div>;`;
 
     document.getElementById('productos__grid').appendChild(item);
 
-    let addBtn = document.getElementById(prod.id+'AddBtn');
-    addBtn.onclick = () => {carrito.agregarProducto(new Producto(prod.id, 1, prod.precio, prod.dispo), true);};
+    let addBtn = document.getElementById(id+'AddBtn');
+    addBtn.onclick = () => {carrito.agregarProducto(new Producto(id, 1, precio, dispo), true);};
 });
 
 ////////////////////////////////////////////Abrir y cerrar Carrito///////////////////////////////////////////////////////////////////
