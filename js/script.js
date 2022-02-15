@@ -1,14 +1,22 @@
 
 class Producto{
 
-    constructor(id, cantidad, precio){
-        this.id=id;
-        this.cantidad=cantidad;
+    constructor(id, cantidad, precio, stock){
+        this.id= id;
+        this.cantidad= cantidad;
         this.precio= precio;
+        this.stock= stock;
     }
 
     sumarUno(){
-        this.cantidad++;
+        if(this.cantidad<this.stock){
+            this.cantidad++;
+        }
+    }
+    restarUno(){
+        if(this.cantidad>1){
+            this.cantidad--;
+        }
     }
 }
 
@@ -68,7 +76,11 @@ class Carrito{
             item.innerHTML = `<div class="carrito__productos__grid">
                 <div class="carrito__productos__imgContainer"><img class="carrito__productos__img" src="img/${prod.id}.jpg" alt=""></div>
                 <h6  class="carrito__productos__prod">${prod.id}</h6>
-                <h6  class="carrito__productos__prodCant">x${prod.cantidad}</h6>
+                <div class="carrito__productos__prodCant">
+                    <h6 class="carrito__productos__prodCant__restar" id="restar--${prod.id}"><</h6>  
+                    <h6>${prod.cantidad}</h6>
+                    <h6 class="carrito__productos__prodCant__sumar" id="sumar--${prod.id}">></h6>
+                </div>                
                 <div class="carrito__productos__line"></div>
                 <div class="carrito__productos__delete"><img class="carrito__productos__delete__crossImg" id="delete--${prod.id}" src="img/crosswhite.png" alt=""></div>
                 <h4 class="carrito__productos__price">$${prod.precio*prod.cantidad}</h4>
@@ -78,6 +90,12 @@ class Carrito{
 
             let deleteBtn = document.getElementById("delete--"+prod.id);
             deleteBtn.onclick = () => {this.quitarProducto(prod.id)};
+
+            let sumarBtn = document.getElementById("sumar--"+prod.id);
+            sumarBtn.onclick = () => {prod.sumarUno();this.actualizarCarrito(true)};
+
+            let restarBtn = document.getElementById("restar--"+prod.id);
+            restarBtn.onclick = () => {prod.restarUno();this.actualizarCarrito(true)};
         })
     }
 	actualizarCuenta(){
@@ -89,6 +107,18 @@ class Carrito{
         cuentaIva.innerText = '$' + this.devolverIva();
         cuentaTotalIva.innerText = '$' + this.devolverTotalConIva();
     }
+    actualizarCarrito(guardar){
+        this.actualizarProductos();
+        this.calcularTotal();
+        this.calcularIva();
+        this.calcularTotalConIva();
+        
+		this.actualizarCuenta();
+        if(guardar){
+            this.guardarCarrito();
+        }
+    }
+
     agregarProducto(producto, guardar){
 
         if(this.productos.some((prod) => prod.id == producto.id)){
@@ -103,44 +133,26 @@ class Carrito{
             this.productos.push(producto);
         }
 
-        this.actualizarProductos();
-
-
-        this.calcularTotal();
-        this.calcularIva();
-        this.calcularTotalConIva();
-        
-		this.actualizarCuenta();
-
-        if(guardar){
-            this.guardarCarrito();
-        }
+        this.actualizarCarrito(guardar);
     }
+
     quitarProducto(producto){
         let index = this.productos.findIndex( item => item.id == producto)
         this.productos.splice(index,1);
 
-        this.actualizarProductos();
-
-
-        this.calcularTotal();
-        this.calcularIva();
-        this.calcularTotalConIva();
-        
-		this.actualizarCuenta();
-        this.guardarCarrito();
+        this.actualizarCarrito(false);
     }
 
 }
 ///////////////////////////////////////////Variables/////////////////////////////////////////////////////////////
 
-const stock =  [{id:'chimuelo', precio: 1500},
-                {id:'guante', precio: 700},
-                {id:'pikachu', precio: 250},
-                {id:'snitch', precio: 300},
-                {id:'groot', precio: 1000},
-                {id:'ironman', precio: 500},
-                {id:'kiloren', precio: 450}];
+const stock =  [{id:'chimuelo', dispo:10, precio: 1500},
+                {id:'guante', dispo:10, precio: 700},
+                {id:'pikachu', dispo:10, precio: 250},
+                {id:'snitch', dispo:10, precio: 300},
+                {id:'groot', dispo:10, precio: 1000},
+                {id:'ironman', dispo:10, precio: 500},
+                {id:'kiloren', dispo:10, precio: 450}];
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 let carrito = new Carrito();
@@ -164,7 +176,7 @@ stock.forEach((prod)=>{
     document.getElementById('productos__grid').appendChild(item);
 
     let addBtn = document.getElementById(prod.id+'AddBtn');
-    addBtn.onclick = () => {carrito.agregarProducto(new Producto(prod.id, 1, prod.precio), true);};
+    addBtn.onclick = () => {carrito.agregarProducto(new Producto(prod.id, 1, prod.precio, prod.dispo), true);};
 });
 
 ////////////////////////////////////////////Abrir y cerrar Carrito///////////////////////////////////////////////////////////////////
