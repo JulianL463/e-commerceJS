@@ -15,13 +15,24 @@ class Producto{
 class Carrito{
 
     constructor(){
-        this.productos = [];
+		this.productos = [];
         this.iva = 0.21;
         this.total = 0;
         this.ivaTotal = 0;
         this.totalConIva = 0;
-        this.carritoText = '';
     }
+	
+	guardarCarrito(){
+		localStorage.setItem("oldCarrito", JSON.stringify(this.productos));
+	}
+
+	cargarCarrito(){
+        let localStorageCarrito = JSON.parse(localStorage.getItem("oldCarrito")) || [];
+
+        localStorageCarrito.forEach((prod) => {
+            carrito.agregarProducto(new Producto(prod.id, prod.cantidad, prod.precio), false);
+        })
+	}
 
     calcularTotal(){
         this.total = 0;
@@ -59,13 +70,26 @@ class Carrito{
                 <h6  class="carrito__productos__prod">${prod.id}</h6>
                 <h6  class="carrito__productos__prodCant">x${prod.cantidad}</h6>
                 <div class="carrito__productos__line"></div>
+                <div class="carrito__productos__delete"><img class="carrito__productos__delete__crossImg" id="delete--${prod.id}" src="img/crosswhite.png" alt=""></div>
                 <h4 class="carrito__productos__price">$${prod.precio*prod.cantidad}</h4>
             </div>`; 
 
             document.getElementById('carrito__productos').appendChild(item);
+
+            let deleteBtn = document.getElementById("delete--"+prod.id);
+            deleteBtn.onclick = () => {this.quitarProducto(prod.id)};
         })
     }
-    agregarProducto(producto){
+	actualizarCuenta(){
+        let cuentaTotal = document.getElementById('carrito__cuenta__total');
+        let cuentaIva = document.getElementById('carrito__cuenta__iva');
+        let cuentaTotalIva = document.getElementById('carrito__cuenta__totalIva');
+
+        cuentaTotal.innerText = '$' + this.devolverTotal();
+        cuentaIva.innerText = '$' + this.devolverIva();
+        cuentaTotalIva.innerText = '$' + this.devolverTotalConIva();
+    }
+    agregarProducto(producto, guardar){
 
         if(this.productos.some((prod) => prod.id == producto.id)){
 
@@ -86,23 +110,29 @@ class Carrito{
         this.calcularIva();
         this.calcularTotalConIva();
         
+		this.actualizarCuenta();
+
+        if(guardar){
+            this.guardarCarrito();
+        }
     }
-    
-    
+    quitarProducto(producto){
+        let index = this.productos.findIndex( item => item.id == producto)
+        this.productos.splice(index,1);
 
-    actualizarCuenta(){
-        let cuentaTotal = document.getElementById('carrito__cuenta__total');
-        let cuentaIva = document.getElementById('carrito__cuenta__iva');
-        let cuentaTotalIva = document.getElementById('carrito__cuenta__totalIva');
+        this.actualizarProductos();
 
-        cuentaTotal.innerText = '$' + this.devolverTotal();
-        cuentaIva.innerText = '$' + this.devolverIva();
-        cuentaTotalIva.innerText = '$' + this.devolverTotalConIva();
+
+        this.calcularTotal();
+        this.calcularIva();
+        this.calcularTotalConIva();
+        
+		this.actualizarCuenta();
+        this.guardarCarrito();
     }
 
 }
 ///////////////////////////////////////////Variables/////////////////////////////////////////////////////////////
-let producto = '';
 
 const stock =  [{id:'chimuelo', precio: 1500},
                 {id:'guante', precio: 700},
@@ -115,6 +145,10 @@ const stock =  [{id:'chimuelo', precio: 1500},
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 let carrito = new Carrito();
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+carrito.cargarCarrito();
+
+
 stock.forEach((prod)=>{
             
     let item = document.createElement("div");
@@ -128,14 +162,12 @@ stock.forEach((prod)=>{
                      </div>;`;
 
     document.getElementById('productos__grid').appendChild(item);
-})
 
-stock.forEach((prod)=>{
-    let btn = document.getElementById(prod.id+'AddBtn');
-    btn.onclick = () => {carrito.agregarProducto(new Producto(prod.id, 1, prod.precio)); carrito.actualizarCuenta()};
-})
+    let addBtn = document.getElementById(prod.id+'AddBtn');
+    addBtn.onclick = () => {carrito.agregarProducto(new Producto(prod.id, 1, prod.precio), true);};
+});
 
-
+////////////////////////////////////////////Abrir y cerrar Carrito///////////////////////////////////////////////////////////////////
 let btnCarrito = document.getElementById('btnCarrito');
 let carro = document.getElementById('carrito');
 let btnCloseCarrito = document.getElementById('carrito__close__img');

@@ -377,6 +377,16 @@ footer {
     align-self: center;
     justify-self: center;
 }
+.carrito__productos__delete{
+    width: 50%;
+    height: 50%;
+    align-self: center;
+    justify-self: end;
+}
+.carrito__productos__delete__crossImg{
+    width: 100%;
+    height: auto;
+}
 .carrito__productos__price{
     font-size: 1rem;
     line-height: 1.5rem;
