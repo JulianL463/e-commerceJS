@@ -231,6 +231,33 @@ footer {
         z-index: 1; 
     }
 }
+@keyframes showCarritoCount{
+    from{
+        transform: scale(0);
+    }
+    to {
+        transform: scale(1);
+    }
+}
+#carritoCount{
+    position: fixed;
+    height: 30px;
+    width: 30px;
+    border-radius: 50%;
+    color: white;
+    background-color: #cf2929;
+    top: 139px;
+    right: 28px;
+    text-align: center;
+    line-height: 30px;
+}
+.carritoCountHide{
+    z-index: -1;
+}
+.carritoCountShow{
+    animation: showCarritoCount 0.2s;
+    z-index: 3;
+}
 #btnCarrito{
     display: flex;
     flex-direction: column;
@@ -274,6 +301,7 @@ footer {
     height: 80px;
     z-index: 2;
 }
+
 
 .carritoHide{
     z-index: -1;
@@ -408,6 +436,12 @@ footer {
     grid-column-start: 4;
     grid-column-end: 5;
     justify-self: center;
+}
+/*//////////////////////////////////////////////////////////////////////////////////*/
+.addedToCartNotif{
+    box-shadow: none;
+    width: 8vw;
+    border-radius: 7px;
 }
 /*//////////////////////////////////////////////////////////////////////////////////*/
 #carrito__cuenta{

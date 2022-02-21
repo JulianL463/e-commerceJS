@@ -9,8 +9,27 @@ class Producto{
     }
 
     sumarUno(){
-        this.cantidad<this.stock && this.cantidad++;
+
+        if(this.cantidad<this.stock){
+            this.cantidad++;
+            Toastify({
+                text: `${this.id} se agrego al carrito`,
+                className: "addedToCartNotif",
+                position: "left",
+                offset: {y: 90},
+                style: { background: "linear-gradient(90deg, rgba(186,3,27,1) 0%, rgba(198,12,12,1) 100%)"}
+            }).showToast();
+        }else{
+            Toastify({
+                text: `Sin stock`,
+                className: "addedToCartNotif",
+                position: "left",
+                offset: {y: 90},
+                style: { background: "black"}
+            }).showToast();
+        }
     }
+
     restarUno(){
         this.cantidad>1 && this.cantidad--;
     }
@@ -24,6 +43,7 @@ class Carrito{
         this.total = 0;
         this.ivaTotal = 0;
         this.totalConIva = 0;
+        this.cantPrdouctos = 0;
     }
 	
 	guardarCarrito(){
@@ -34,10 +54,9 @@ class Carrito{
         let localStorageCarrito = JSON.parse(localStorage.getItem("oldCarrito")) || [];
 
         localStorageCarrito.forEach((prod) => {
-            const product = {
-                ...prod
-            }
-            carrito.agregarProducto(product, false);
+            const {id, cantidad, precio, stock} = prod;
+            
+            carrito.agregarProducto(new Producto(id, cantidad, precio, stock), false, false);
         })
 	}
 
@@ -68,6 +87,7 @@ class Carrito{
     actualizarProductos(){
         let listaProductos = document.getElementById('carrito__productos');
         listaProductos.innerHTML = '';
+        this.cantPrdouctos = 0;
 
         this.productos.forEach((prod)=>{
             
@@ -97,6 +117,8 @@ class Carrito{
 
             let restarBtn = document.getElementById("restar--"+id);
             restarBtn.onclick = () => {prod.restarUno();this.actualizarCarrito(true)};
+            
+            this.cantPrdouctos += prod.cantidad;
         })
     }
 	actualizarCuenta(){
@@ -108,6 +130,11 @@ class Carrito{
         cuentaIva.innerText = '$' + this.devolverIva();
         cuentaTotalIva.innerText = '$' + this.devolverTotalConIva();
     }
+    actualizarCantidad(){
+        let carritoCant = document.getElementById('carritoCount');
+
+        carritoCant.innerText = this.cantPrdouctos;
+    }
     actualizarCarrito(guardar){
         this.actualizarProductos();
         this.calcularTotal();
@@ -116,10 +143,12 @@ class Carrito{
         
 		this.actualizarCuenta();
 
+        this.actualizarCantidad();
+
         guardar && this.guardarCarrito();
     }
 
-    agregarProducto(producto, guardar){
+    agregarProducto(producto, guardar, notif){
 
         if(this.productos.some((prod) => prod.id == producto.id)){
 
@@ -131,6 +160,15 @@ class Carrito{
 
         }else {
             this.productos.push(producto);
+            if(notif==true){
+                Toastify({
+                    text: `${producto.id} se agrego al carrito`,
+                    className: "addedToCartNotif",
+                    position: "left",
+                    offset: {y: 90},
+                    style: { background: "linear-gradient(90deg, rgba(186,3,27,1) 0%, rgba(198,12,12,1) 100%)"}
+                }).showToast();
+            }
         }
 
         this.actualizarCarrito(guardar);
@@ -156,6 +194,7 @@ const stock =  [{id:'chimuelo', dispo:10, precio: 1500},
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 let carrito = new Carrito();
+let carritoCant = document.getElementById('carritoCount');
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 carrito.cargarCarrito();
@@ -177,7 +216,11 @@ stock.forEach((prod)=>{
     document.getElementById('productos__grid').appendChild(item);
 
     let addBtn = document.getElementById(id+'AddBtn');
-    addBtn.onclick = () => {carrito.agregarProducto(new Producto(id, 1, precio, dispo), true);};
+    addBtn.onclick = () => {
+        carrito.agregarProducto(new Producto(id, 1, precio, dispo), true, true);
+        carritoCant.classList.remove('carritoCountShow');setTimeout(() => {carritoCant.classList.add('carritoCountShow')}, 10); 
+    };
+        
 });
 
 ////////////////////////////////////////////Abrir y cerrar Carrito///////////////////////////////////////////////////////////////////
@@ -185,6 +228,21 @@ let btnCarrito = document.getElementById('btnCarrito');
 let carro = document.getElementById('carrito');
 let btnCloseCarrito = document.getElementById('carrito__close__img');
 
-btnCarrito.onclick = () => { btnCarrito.classList.add('growAnimBtnCarrito'); btnCarrito.classList.remove('shrinkAnimBtnCarrito');btnCarrito.classList.remove('shrinkBtnCarrito'); carro.classList.remove('carritoHide'); carro.classList.add('carritoShow')};
-btnCloseCarrito.onclick = () => { btnCarrito.classList.remove('growAnimBtnCarrito'); btnCarrito.classList.add('shrinkAnimBtnCarrito'); carro.classList.add('carritoHide'); carro.classList.remove('carritoShow')};
+btnCarrito.onclick = () => { btnCarrito.classList.add('growAnimBtnCarrito');
+    btnCarrito.classList.remove('shrinkAnimBtnCarrito');
+    btnCarrito.classList.remove('shrinkBtnCarrito');
+    carro.classList.remove('carritoHide');
+    carro.classList.add('carritoShow');
+    carritoCant.classList.remove('carritoCountShow');
+    carritoCant.classList.add('carritoCountHide')
+};
+btnCloseCarrito.onclick = () => { 
+    btnCarrito.classList.remove('growAnimBtnCarrito');
+    btnCarrito.classList.add('shrinkAnimBtnCarrito');
+    carro.classList.add('carritoHide');
+    carro.classList.remove('carritoShow');
+    setTimeout(() => {
+        carritoCant.classList.remove('carritoCountHide');
+        carritoCant.classList.add('carritoCountShow')},700);
+};
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
