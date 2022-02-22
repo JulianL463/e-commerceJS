@@ -8,6 +8,7 @@ body {
     width: 100%;
     background-color: rgb(0, 0, 0);
     font-family: 'Pathway Gothic One', Arial, Helvetica, sans-serif;
+	overflow-x: hidden;
 }
 
 nav{
@@ -18,10 +19,11 @@ nav{
     display: grid;
     justify-content: space-around;
     align-items: center;
-    grid-template-columns: 30vw 35vw 30vw;
+    grid-template-columns: 20vw 36vw 20vw;
     background-color: rgba(0,0,0,0.8);
     backdrop-filter: blur(5px);
     z-index: 1;
+	
 }
 ul li {
     list-style-type: none;
@@ -36,7 +38,6 @@ h1{
     background-color: rgb(0, 0, 0);
     font-size: 3rem;
     letter-spacing: 1rem;
-    transform: translateX(1rem);
     text-align: center;
     color: white;
     animation-timing-function: ease-out;
@@ -53,8 +54,9 @@ footer {
 }
 /*/////////////////////////////////PRODUCTO///////////////////////////////////////*/
 .nav__logo{
-    height: 2vh;
+	height: 2vh;
     justify-self: left;
+	
 }
 .nav__logo img{
     height: 100%;
@@ -66,7 +68,7 @@ footer {
 }
 
 .nav__redes{
-    height: 2vh;
+	height: 2vh;
     justify-self: right;
 }
 .nav__redes__icon{
@@ -89,16 +91,19 @@ footer {
 }
 /*//////////////////////////////////////////////////////////////////////////////////*/
 .productos{
-    width: 100%;
+    width: 101%;
     background-color: white;
 }
 #productos__grid{
-    width: 60vw;
+    /*width: 60vw;*/
+	width: 100vw;
     background-color: white;
-    margin: 0 20vw 0 20vw;
+    /*margin: 0 20vw 0 20vw;*/
+	margin: 0;
     padding: 5vh 0 10vh 0;
     display: grid;
-    grid-template-columns: 30% 30% 30%;
+	grid-template-columns: 1;
+    /*grid-template-columns: 30% 30% 30%;*/
     grid-row-gap: 50px;
     justify-items: center;
     justify-content: space-around;
@@ -106,8 +111,10 @@ footer {
 }
 /*/////////////////////////////////PRODUCTO///////////////////////////////////////*/
 .producto{
-    width: 15vw;
-    height: 21vw;
+	width: 70vw;
+    height: 90vw;
+    /*width: 15vw;
+    height: 21vw;*/
     border-radius: 10px;
     background-color: black;
     overflow:hidden;
@@ -123,7 +130,7 @@ footer {
 }
 .producto__titulo h3{
     color: white;
-    font-size: 2rem;
+    font-size: 3vh;
     letter-spacing: 0.5rem;
     transform: translateX(0.5rem);
 }
@@ -506,8 +513,33 @@ footer {
 
 // } */
 @media (min-width: 600px) {
+	nav{
+		width: 100%;
+	}
+	h1{
+		transform: translateX(1rem);
+	}
+
+	.nav__logo{
+		height: 3vh;
+		justify-self: left;
+	}
+	.nav__redes{
+		height: 3vh;
+		justify-self: right;
+	}
+	#productos__grid{
+		width: 80vw;
+		margin: 0 10vw 0 10vw;
+		grid-template-columns: 50% 50%;
+		
+	}
+	.producto{
+		width: 30vw;
+		height: 40vw;
+	}
     .footer__flex__row label, input{
-        
+     
         width: 99%;
         
     }
@@ -520,5 +552,14 @@ footer {
     }
   
 }
-/* // @media (min-width: $largeBP) {
-// }  */
+@media (min-width: 1024px) {
+	#productos__grid{
+		width: 60vw;
+		margin: 0 20vw 0 20vw;
+		grid-template-columns: 30% 30% 30%;
+	}
+	.producto{
+		width: 18vw;
+		height: 25vw;
+	}
+}  
