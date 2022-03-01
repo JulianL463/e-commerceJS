@@ -391,28 +391,28 @@ footer {
     margin-bottom: 10px;
 }
 .carrito__productos__imgContainer{
-    width: 60px;
-    height: 60px;
+    width: 80px;
+    height: 80px;
     overflow: hidden;
-    border-radius: 30px;
+    border-radius: 50%;
     grid-row-start: 1;
     grid-row-end: 3;
     align-self: center;
     justify-self: center;
 }
 .carrito__productos__img{
-    width: 60px;
+    width: 80px;
     height: auto;
 }
 .carrito__productos__prod{
-    font-size: 1rem;
+    font-size: 1.3rem;
     line-height: 1.5rem;
     letter-spacing: 0.1rem;
     grid-row-start: 1;
     grid-row-end: 2;
     grid-column-start: 2;
     grid-column-end: 4;
-    align-self: flex-end;
+    align-self: center;
 }
 .carrito__productos__prodCant{
     font-size: 1rem;
@@ -428,17 +428,19 @@ footer {
 }
 .carrito__productos__prodCant h6 {
     display: inline;
-    font-size: 1rem;
+    font-size: 1.5rem;
     line-height: 1.5rem;
     letter-spacing: 0.1rem;
     width: 33%;
-    text-align: center;
+    text-align:center;
+    align-self: center;
+    justify-self: center;
 }
 
 .carrito__productos__line{
     background-color: #cf2929;
-    height: 1px;
-    width: 125%;
+    height: 2px;
+    width: 110%;
     grid-row-start: 2;
     grid-row-end: 3;
     grid-column-start: 3;
@@ -449,7 +451,7 @@ footer {
 .carrito__productos__delete{
     width: 50%;
     height: 50%;
-    align-self: center;
+    align-self: top;
     justify-self: end;
 }
 .carrito__productos__delete__crossImg{
@@ -457,20 +459,24 @@ footer {
     height: auto;
 }
 .carrito__productos__price{
-    font-size: 1rem;
+    font-size: 1.2rem;
     line-height: 1.5rem;
     letter-spacing: 0.1rem;
     grid-row-start: 2;
     grid-row-end: 3;
     grid-column-start: 4;
     grid-column-end: 5;
-    justify-self: center;
+    align-self: center;
+    justify-self: end;
 }
 /*//////////////////////////////////////////////////////////////////////////////////*/
 .addedToCartNotif{
     box-shadow: none;
-    width: 8vw;
+    width: 15vw;
     border-radius: 7px;
+    padding: 10px;
+    font-size: 1rem;
+    z-index: 1;
 }
 /*//////////////////////////////////////////////////////////////////////////////////*/
 #carrito__cuenta{
@@ -650,6 +656,59 @@ footer {
 		width: 80px;
 		height: 80px;
 	}
+    /*///////////////////////////////////////////////////////////////*/
+    .carrito__productos__imgContainer{
+        width: 120px;
+        height: 120px;
+    }
+    .carrito__productos__img{
+        width: 120px;
+    }
+    .carrito__productos__prod{
+        font-size: 2rem;
+        line-height: 2rem;
+        padding-left: 3%;
+        justify-self: flex-start;
+    }
+
+    .carrito__productos__prodCant h6 {
+        font-size: 2.2rem;
+        line-height: 1.5rem;
+    }
+
+    .carrito__productos__line{
+        width: 115%;
+        justify-self: flex-start;
+    }
+    .carrito__productos__delete{
+        width: 30px;
+        align-self: center;
+    }
+    .carrito__productos__delete__crossImg{
+        width: 30px;
+        height: 30px;
+    }
+    
+    .carrito__productos__price{
+        font-size: 2rem;
+        line-height: 2rem;
+    }
+
+    #carrito__cuenta{
+        font-size: 2.2rem;
+        line-height: 2.5rem;
+
+    }
+    #carrito__cuenta__totalIva{
+        font-size: 2.5rem;
+    }
+    /*///////////////////////////////////////////////////////////////*/
+
+    .addedToCartNotif{
+        box-shadow: none;
+        width: 8vw;
+        border-radius: 7px;
+    }
 	
     .footer__flex__row label, input{
      
@@ -769,4 +828,47 @@ footer {
 	#carrito__productos{
 		height: 40vh;
 	}
+
+     /*///////////////////////////////////////////////////////////////*/
+     .carrito__productos__imgContainer{
+        width: 60px;
+        height: 60px;
+    }
+    .carrito__productos__img{
+        width: 60px;
+    }
+    .carrito__productos__prod{
+        font-size: 1.2rem;
+        line-height: 1.2rem;
+    }
+
+    .carrito__productos__prodCant h6 {
+        font-size: 1.5rem;
+        line-height: 1.5rem;
+    }
+
+    .carrito__productos__line{
+        width: 105%;
+    }
+    .carrito__productos__delete{
+        width: 20px;
+    }
+    .carrito__productos__delete__crossImg{
+        width: 20px;
+        height: 20px;
+    }
+    .carrito__productos__price{
+        font-size: 1.5rem;
+        line-height: 1.5rem;
+    }
+
+    #carrito__cuenta{
+        font-size: 1.5rem;
+        line-height: 1.5rem;
+
+    }
+    #carrito__cuenta__totalIva{
+        font-size: 1.6rem;
+    }
+    /*///////////////////////////////////////////////////////////////*/
 }  
