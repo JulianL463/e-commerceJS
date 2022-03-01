@@ -1,41 +1,4 @@
 
-class Producto{
-
-    constructor(id, cantidad, precio, stock){
-        this.id= id;
-        this.cantidad= cantidad;
-        this.precio= precio;
-        this.stock= stock;
-    }
-
-    sumarUno(){
-
-        if(this.cantidad<this.stock){
-            this.cantidad++;
-            Toastify({
-                text: `${this.id} se agrego al carrito`,
-                className: "addedToCartNotif",
-                position: "left",
-                offset: {y: 90},
-                style: { background: "linear-gradient(90deg, rgba(186,3,27,1) 0%, rgba(198,12,12,1) 100%)"}
-            }).showToast();
-        }else{
-            Toastify({
-                text: `Sin stock`,
-                className: "addedToCartNotif",
-                position: "left",
-                offset: {y: 90},
-                style: { background: "black"}
-            }).showToast();
-        }
-    }
-
-    restarUno(){
-        this.cantidad>1 && this.cantidad--;
-    }
-}
-
-
 ///////////////////////////////////////////Variables/////////////////////////////////////////////////////////////
 
 const stock =  [{id:'chimuelo', dispo:10, precio: 1500},
@@ -84,6 +47,7 @@ stock.forEach((prod)=>{
 let btnCarrito = document.getElementById('btnCarrito');
 let carro = document.getElementById('carrito');
 let btnCloseCarrito = document.getElementById('carrito__close__img');
+let blackOut = document.getElementById('blackOutBG');
 
 btnCarrito.onclick = () => { btnCarrito.classList.add('growAnimBtnCarrito');
     btnCarrito.classList.remove('shrinkAnimBtnCarrito');
@@ -91,7 +55,9 @@ btnCarrito.onclick = () => { btnCarrito.classList.add('growAnimBtnCarrito');
     carro.classList.remove('carritoHide');
     carro.classList.add('carritoShow');
     carritoCant.classList.remove('carritoCountShow');
-    carritoCant.classList.add('carritoCountHide')
+    carritoCant.classList.add('carritoCountHide');
+	blackOut.style.display = "block";
+	blackOut.classList.add('blackOutBGSize')
 };
 btnCloseCarrito.onclick = () => { 
     btnCarrito.classList.remove('growAnimBtnCarrito');
@@ -101,5 +67,8 @@ btnCloseCarrito.onclick = () => {
     setTimeout(() => {
         carritoCant.classList.remove('carritoCountHide');
         carritoCant.classList.add('carritoCountShow')},700);
+	blackOut.style.display = "none";
+	blackOut.classList.remove('blackOutBGSize');
+
 };
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////

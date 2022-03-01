@@ -181,14 +181,15 @@ footer {
 @keyframes growCarrito{
     from{
         border-radius: 50%;
-        width: 80px;
-        height: 80px;
+        width: 50px;/*80*/ 
+        height: 50px;/*80*/ 
         z-index: 2;  
+		right: 8px;
     }
     30%{
         border-radius: 10px;
-        width: 80px;
-        height: 80px;   
+        width: 50px;/*80*/ 
+        height: 50px;   /*80*/ 
     }
     80%{
         opacity: 100%;
@@ -198,32 +199,35 @@ footer {
         z-index: 2;
     }
     to {
-        width: 16vw;
-        height: 42.2vh;
+        width: 85vw;/*16vw*/
+        height: 60vh;
         z-index: -1;
+		right: 30px;
     }
 }
 @keyframes shrinkCarrito{
     from{
-        width: 16vw;
-        height: 42.2vh;
+        width: 85vw;/*16vw*/
+        height: 60vh;
         border-radius: 10px;
         opacity: 0%;
         z-index: 2;
+		right: 30px;
     }
     30%{
         opacity: 100%;
     }
     70%{
         border-radius: 10px;
-        width: 80px;
-        height: 80px;   
+        width: 50px;/*80*/ 
+        height: 50px;/*80*/ 
     }
     to {
         border-radius: 50%;
-        width: 80px;
-        height: 80px;
+        width: 50px;/*80*/ 
+        height: 50px;/*80*/ 
         z-index: 2; 
+		right: 8px;
     }
 }
 
@@ -248,15 +252,16 @@ footer {
 }
 #carritoCount{
     position: fixed;
-    height: 30px;
-    width: 30px;
+    height: 24px;
+    width: 24px;
     border-radius: 50%;
     color: white;
     background-color: #cf2929;
-    top: 139px;
-    right: 28px;
+    top: 130px;
+    right: 20px;
+	font-size: 3vh;
     text-align: center;
-    line-height: 30px;
+    line-height: 24px;
 }
 .carritoCountHide{
     z-index: -1;
@@ -270,15 +275,28 @@ footer {
     flex-direction: column;
     position: fixed;
     top: 142px;
-    right: 30px;
+    right: 8px;
     overflow: hidden;
 }
 #btnCarrito__inside{
     flex-grow: 1;
     background: center / 30px no-repeat url("../img/cartwhite.png"), black;
 }
+#blackOutBG{
+	display: none;
+	position: fixed;
+	top:4vh;
+	background-color: rgba(0,0,0,0.5);
+	z-index: 1;
+}
+.blackOutBGSize{
+	width:100vw;
+	height:100vh;
+}
+
 #carrito{
-    width: 16vw;
+    /*width: 16vw;*/
+	width: 85vw;
     display: flex;
     flex-direction: column;
     position: fixed;
@@ -289,23 +307,26 @@ footer {
 }
 
 .growAnimBtnCarrito{
-    animation: growCarrito 0.7s;
-    width: 16vw;
-    height: 42.2vh;
+    animation: growCarrito 0.8s;
+    width: 85vw;/*16vw*/
+	height: 60vh;
+    /*height: 42.2vh;*/
     border-radius: 10px;
     z-index: -1;
 }
 .shrinkAnimBtnCarrito{
-    animation: shrinkCarrito 0.7s;
+    animation: shrinkCarrito 0.8s;
     border-radius: 50%;
-    width: 80px;
-    height: 80px;
+    width: 50px;/*80*/ 
+    height: 50px;/*80*/ 
     z-index: 2;
 }
 .shrinkBtnCarrito{
     border-radius: 50%;
-    width: 80px;
-    height: 80px;
+	width: 50px;
+    height: 50px;
+    /*width: 80px;
+    height: 80px;*/
     z-index: 2;
 }
 
@@ -343,7 +364,8 @@ footer {
     height: 20px;
 }
 #carrito__productos{
-    height: 30vh;
+	height: 60vh;
+    /*height: 30vh;*/
     background-color: white;
     padding: 5px 15px 5px 15px;
     display: flex;
@@ -538,6 +560,97 @@ footer {
 		width: 30vw;
 		height: 40vw;
 	}
+	
+	@keyframes growCarrito{
+		from{
+			border-radius: 50%;
+			width: 80px;
+			height: 80px; 
+			z-index: 2;  
+            left: 90.5vw;
+		}
+		30%{
+			border-radius: 10px;
+			width: 80px; 
+			height: 80px;
+		}
+		80%{
+			opacity: 100%;
+		}
+		99%{
+			opacity: 0%;
+			z-index: 2;
+		}
+		to {
+			width: 80vw;
+			height: 74vh;
+			z-index: -1;
+            left: 10vw;
+		}
+	}
+	@keyframes shrinkCarrito{
+		from{
+			width: 80vw;
+			height: 74vh;
+			border-radius: 10px;
+			opacity: 0%;
+			z-index: 2;
+            left: 10vw;
+		}
+		30%{
+			opacity: 100%;
+		}
+		70%{
+			border-radius: 10px;
+			width: 80px;
+			height: 80px;
+		}
+		to {
+			border-radius: 50%;
+			width: 80px;
+			height: 80px;	
+			z-index: 2; 
+            left: 90.5vw;
+		}
+	}
+	#btnCarrito{
+		top: 115px;
+        left: 90.5vw;
+        transform-origin: right;
+	}
+	#carrito{
+		top: 115px;
+		left: 10vw;
+        width: 80vw;
+	}
+    #carritoCount{
+        height: 30px;
+		width: 30px;
+		top: 115px;
+        right: 20px;
+		line-height: 30px;
+	}
+
+
+    #carrito__title{
+        flex-grow: 3;
+        align-self: center;
+        text-align: end;
+    }
+
+	.growAnimBtnCarrito{
+		width: 16vw;
+		height: 42.2vh;
+	}
+	.shrinkAnimBtnCarrito{
+		width: 80px;
+		height: 80px;
+	}
+	.shrinkBtnCarrito{
+		width: 80px;
+		height: 80px;
+	}
+	
     .footer__flex__row label, input{
      
         width: 99%;
@@ -552,6 +665,8 @@ footer {
     }
   
 }
+
+
 @media (min-width: 1024px) {
 	#productos__grid{
 		width: 60vw;
@@ -561,5 +676,97 @@ footer {
 	.producto{
 		width: 18vw;
 		height: 25vw;
+	}
+	
+	@keyframes growCarrito{
+		from{
+			border-radius: 50%;
+			width: 80px;
+			height: 80px; 
+			z-index: 2;  
+            left: 93.8vw;
+		}
+		30%{
+			border-radius: 10px;
+
+		}
+		80%{
+			opacity: 100%;
+		}
+		99%{
+			opacity: 0%;
+			z-index: 2;
+		}
+		to {
+			width: 16vw;
+			height: 52vh;
+			z-index: -1;
+            left: 82vw;
+		}
+	}
+	@keyframes shrinkCarrito{
+		from{
+			width: 16vw;
+			height: 52vh;
+			border-radius: 10px;
+			opacity: 0%;
+			z-index: 2;
+            left: 82vw;
+		}
+		30%{
+			opacity: 100%;
+		}
+		70%{
+			border-radius: 10px;
+			width: 80px;
+			height: 80px;
+            left: 93.8vw;
+		}
+		to {
+			border-radius: 50%;
+			width: 80px;
+			height: 80px;	
+			z-index: 2; 
+            
+		}
+	}
+	#carritoCount{
+		position: fixed;
+		height: 30px;
+		width: 30px;
+		background-color: #cf2929;
+		top: 115px;
+		right: 20px;
+		font-size: 3vh;
+		line-height: 30px;
+	}
+    #btnCarrito{
+        left: 93.8vw;
+    }
+	#carrito{
+		width: 16vw;
+		top: 115px;
+		left: 82vw;
+	}
+
+	.growAnimBtnCarrito{
+		width: 16vw;
+		height: 42.2vh;
+	}
+	.shrinkAnimBtnCarrito{
+		width: 80px;
+		height: 80px;
+	}
+	.shrinkBtnCarrito{
+		width: 80px;
+		height: 80px;
+	}
+	.blackOutBGSize{
+		width:0vw;
+		height:0vh;
+	}
+	
+	#carrito__productos{
+		height: 40vh;
 	}
 }  

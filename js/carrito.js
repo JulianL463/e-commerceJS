@@ -47,6 +47,7 @@ class Carrito{
     devolverTotalConIva(){
         return this.totalConIva;
     }
+
     actualizarProductos(){
         let listaProductos = document.getElementById('carrito__productos');
         listaProductos.innerHTML = '';

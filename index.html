@@ -36,28 +36,28 @@
         </nav>
 
         <h1>TIEN<span class="redText">DA</span></h1>
+		<div id="blackOutBG" class="blackOutBGSize"></div>
+		<div id="carrito" class="carritoHide">
 
-        <div id="carrito" class="carritoHide">
+			<div id="carrito__top">
+				<div id="carrito__title">CARRITO</div>
+				<div id="carrito__close"><img id="carrito__close__img" src="img/crosswhite.png" alt=""></div>
+			</div>		
+			
 
-            <div id="carrito__top">
-                <div id="carrito__title">CARRITO</div>
-                <div id="carrito__close"><img id="carrito__close__img" src="img/crosswhite.png" alt=""></div>
-            </div>
-            
+			<div id="carrito__productos"></div>
 
-            <div id="carrito__productos">                
-            </div>
+			<div id="carrito__cuenta">
+				<h4>Total: </h4>
+				<h4 id="carrito__cuenta__total">$0</h4><br>
+				<h4>IVA: </h4>
+				<h4 id="carrito__cuenta__iva">$0</h4><br>
+				<h4>Total+IVA: </h4>
+				<h4 id="carrito__cuenta__totalIva" >$0</h4>
+			</div>
 
-            <div id="carrito__cuenta">
-                <h4>Total: </h4>
-                <h4 id="carrito__cuenta__total">$0</h4><br>
-                <h4>IVA: </h4>
-                <h4 id="carrito__cuenta__iva">$0</h4><br>
-                <h4>Total+IVA: </h4>
-                <h4 id="carrito__cuenta__totalIva" >$0</h4>
-            </div>
+		</div>
 
-        </div>
 
         <div id="carritoCount" class="carritoCountShow">0</div>
         <div id="btnCarrito" class="shrinkBtnCarrito">
@@ -106,6 +106,7 @@
        
     </body>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+    <script src="js/producto.js"></script>
 	<script src="js/carrito.js"></script>
     <script src="js/script.js"></script>
     
