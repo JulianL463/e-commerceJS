@@ -17,12 +17,10 @@ let carritoCant = document.getElementById('carritoCount');
 
 carrito.cargarCarrito();
 
-fetch('js/productos.json')
+fetch('productos.json')
     .then((resp) => resp.json())
     .then((data) => {
         stock = data;
-        console.log(data);
-        console.log(stock);
         stock.forEach((prod)=>{
 
             const {id, precio, dispo} = prod;
