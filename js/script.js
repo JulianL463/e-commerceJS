@@ -2,14 +2,6 @@
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 let stock = [];
 
-
-//   [{id:'chimuelo', dispo:10, precio: 1500},
-//                 {id:'guante', dispo:10, precio: 700},
-//                 {id:'pikachu', dispo:10, precio: 250},
-//                 {id:'snitch', dispo:10, precio: 300},
-//                 {id:'groot', dispo:10, precio: 1000},
-//                 {id:'ironman', dispo:10, precio: 500},
-//                 {id:'kiloren', dispo:10, precio: 450}];
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 let carrito = new Carrito();
 let carritoCant = document.getElementById('carritoCount');
@@ -18,62 +10,74 @@ let carritoCant = document.getElementById('carritoCount');
 carrito.cargarCarrito();
 
 fetch('productos.json')
-    .then((resp) => resp.json())
-    .then((data) => {
-        stock = data;
-        stock.forEach((prod)=>{
+.then((resp) => resp.json())
+.then((data) => {
+    stock = [...data];
+    stock.forEach((prod)=>{
 
-            const {id, precio, dispo} = prod;
-            let item = document.createElement("div");
+        const {id, precio, dispo} = prod;
+        let item = document.createElement("div");
+
+        item.className = "producto";
+        item.id = `${id}StoreItem`;
+        item.innerHTML = `<div class="producto__titulo"><h3>${id.toUpperCase()}</h3></div>
+                        <div class="producto__img"><img src="img/${id}.jpg" alt=""></div>
+                        <div class="producto__info">
+                            <h4 class="producto__info__precio">$${precio}</h4>
+                            <input id="${id}AddBtn" class="producto__info__boton" type="button" value="">
+                        </div>`;
+
+        document.getElementById('productos__grid').appendChild(item);
+
+        let optionProd = document.createElement("option");
+
+        optionProd.value = id;
+
+        document.getElementById('productosEnStock').appendChild(optionProd);
         
-            item.className = "producto";
-            item.innerHTML = `<div class="producto__titulo"><h3>${id.toUpperCase()}</h3></div>
-                            <div class="producto__img"><img src="img/${id}.jpg" alt=""></div>
-                            <div class="producto__info">
-                                <h4 class="producto__info__precio">$${precio}</h4>
-                                <input id="${id}AddBtn" class="producto__info__boton" type="button" value="">
-                             </div>;`;
-        
-            document.getElementById('productos__grid').appendChild(item);
-        
-            let addBtn = document.getElementById(id+'AddBtn');
-            addBtn.onclick = () => {
-                carrito.agregarProducto(new Producto(id, 1, precio, dispo), true, true);
-                if(carritoCant.classList.contains('carritoCountShow')){
-                    carritoCant.classList.remove('carritoCountShow');
-                    setTimeout(() => {carritoCant.classList.add('carritoCountShow')}, 10);
-                }
-            };
-                
-        });
-    })
+        let addBtn = document.getElementById(id+'AddBtn');
+        addBtn.onclick = () => {
+            carrito.agregarProducto(new Producto(id, 1, precio, dispo), true, true);
+            if(carritoCant.classList.contains('carritoCountShow')){
+                carritoCant.classList.remove('carritoCountShow');
+                setTimeout(() => {carritoCant.classList.add('carritoCountShow')}, 10);
+            }
+        };
+    });
+})
+//////////////////////////////////////////Buscador//////////////////////////////////////////////////////////////
+let buscarProducto = () => {
+    let searchValue = document.getElementById('toSearch').value;
+    let productsInStock = document.getElementsByClassName("producto");
+
+    for( let i = 0; i < productsInStock.length; i++){
+        searchValue == '' ? productsInStock[i].classList.remove('hide') : productsInStock[i].classList.add('hide');
+    }
+
+    if(stock.some((prod) => prod.id == searchValue.toLowerCase())){
+        let productToShow = productsInStock.namedItem(`${searchValue}StoreItem`);
+        productToShow.classList.remove('hide');
+    }else if(searchValue!=''){
+        Toastify({
+            text: `No se encontró el producto`,
+            className: "addedToCartNotif",
+            position: "left",
+            offset: {y: 100},
+            style: { background: "black"}
+        }).showToast();
+    }
+
+}
+
+let btnSearch = document.getElementById('searchBtn');
+
+btnSearch.onclick = () => buscarProducto();
+document.getElementById('toSearch').addEventListener("keypress", function(event) {
+    if (event.key === 'Enter') {
+        buscarProducto();
+    }
+});
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
-////////////////////////////////////////////Abrir y cerrar Carrito///////////////////////////////////////////////
-let carro = document.getElementById('carrito');
-let btnCloseCarrito = document.getElementById('carrito__close__img');
-let blackOut = document.getElementById('blackOutBG');
 
-btnCarrito.onclick = () => { btnCarrito.classList.add('growAnimBtnCarrito');
-    btnCarrito.classList.remove('shrinkAnimBtnCarrito');
-    btnCarrito.classList.remove('shrinkBtnCarrito');
-    carro.classList.remove('carritoHide');
-    carro.classList.add('carritoShow');
-    carritoCant.classList.remove('carritoCountShow');
-    carritoCant.classList.add('carritoCountHide');
-	blackOut.style.display = "block";
-	blackOut.classList.add('blackOutBGSize')
-};
-btnCloseCarrito.onclick = () => { 
-    btnCarrito.classList.remove('growAnimBtnCarrito');
-    btnCarrito.classList.add('shrinkAnimBtnCarrito');
-    carro.classList.add('carritoHide');
-    carro.classList.remove('carritoShow');
-    setTimeout(() => {
-        carritoCant.classList.remove('carritoCountHide');
-        carritoCant.classList.add('carritoCountShow')},700);
-	blackOut.style.display = "none";
-	blackOut.classList.remove('blackOutBGSize');
-
-};
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////

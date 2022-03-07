@@ -146,3 +146,32 @@ class Carrito{
     }
 
 }
+
+////////////////////////////////////////////Abrir y cerrar Carrito///////////////////////////////////////////////
+let carro = document.getElementById('carrito');
+let btnCloseCarrito = document.getElementById('carrito__close__img');
+let blackOut = document.getElementById('blackOutBG');
+
+btnCarrito.onclick = () => { btnCarrito.classList.add('growAnimBtnCarrito');
+    btnCarrito.classList.remove('shrinkAnimBtnCarrito');
+    btnCarrito.classList.remove('shrinkBtnCarrito');
+    carro.classList.remove('carritoHide');
+    carro.classList.add('carritoShow');
+    carritoCant.classList.remove('carritoCountShow');
+    carritoCant.classList.add('carritoCountHide');
+	blackOut.style.display = "block";
+	blackOut.classList.add('blackOutBGSize')
+};
+btnCloseCarrito.onclick = () => { 
+    btnCarrito.classList.remove('growAnimBtnCarrito');
+    btnCarrito.classList.add('shrinkAnimBtnCarrito');
+    carro.classList.add('carritoHide');
+    carro.classList.remove('carritoShow');
+    setTimeout(() => {
+        carritoCant.classList.remove('carritoCountHide');
+        carritoCant.classList.add('carritoCountShow')},700);
+	blackOut.style.display = "none";
+	blackOut.classList.remove('blackOutBGSize');
+
+};
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
