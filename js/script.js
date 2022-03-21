@@ -47,14 +47,14 @@ fetch('productos.json')
 })
 //////////////////////////////////////////Buscador//////////////////////////////////////////////////////////////
 let buscarProducto = () => {
-    let searchValue = document.getElementById('toSearch').value;
+    let searchValue = document.getElementById('toSearch').value.toLowerCase();
     let productsInStock = document.getElementsByClassName("producto");
 
     for( let i = 0; i < productsInStock.length; i++){
         searchValue == '' ? productsInStock[i].classList.remove('hide') : productsInStock[i].classList.add('hide');
     }
 
-    if(stock.some((prod) => prod.id == searchValue.toLowerCase())){
+    if(stock.some((prod) => prod.id == searchValue)){
         let productToShow = productsInStock.namedItem(`${searchValue}StoreItem`);
         productToShow.classList.remove('hide');
     }else if(searchValue!=''){
